@@ -1,0 +1,12 @@
+data/*
+data
+logs/*
+logs
+checkpoints/*
+checkpoints
+results/*
+results
+*.pyc
+pyrightconfig.toml
+
+old/*
