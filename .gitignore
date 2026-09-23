@@ -430,3 +430,6 @@ FodyWeavers.xsd
 
 # Large files in data
 data/Inorganic Impurity Dataset/SS_rxns_80806_dupremoved.json
+
+# Large model files, especially pre-trained FlowER models
+models

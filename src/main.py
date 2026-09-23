@@ -1,9 +1,29 @@
-from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
+import json
+from config import Config
 
-tokenizer = AutoTokenizer.from_pretrained("sagawa/ReactionT5v2-forward", return_tensors="pt")
-model = AutoModelForSeq2SeqLM.from_pretrained("sagawa/ReactionT5v2-forward")
+with open(Config.FolderPaths.INORGANIC_DATASET, "r") as f:
+    data = json.load(f)
 
-inp = tokenizer('REACTANT:COC(=O)C1=CCCN(C)C1.O.[Al+3].[H-].[Li+].[Na+].[OH-]REAGENT:C1CCOC1', return_tensors='pt')
-output = model.generate(**inp, num_beams=1, num_return_sequences=1, return_dict_in_generate=True, output_scores=True)
-output = tokenizer.decode(output['sequences'][0], skip_special_tokens=True).replace(' ', '').rstrip('.')
-print(output) # 'CN1CCC=C(CO)C1'
+
+def get_keys(value):
+    keys = set()
+
+    if isinstance(value, dict):
+        keys.update(value.keys())
+        for nested_value in value.values():
+            keys.update(get_keys(nested_value))
+    elif isinstance(value, list):
+        for nested_value in value:
+            keys.update(get_keys(nested_value))
+
+    return keys
+
+
+if isinstance(data, dict):
+    all_keys = set()
+    for value in data.values():
+        all_keys.update(get_keys(value))
+else:
+    all_keys = get_keys(data)
+
+print(all_keys) 
