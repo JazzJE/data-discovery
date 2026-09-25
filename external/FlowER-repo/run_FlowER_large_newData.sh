@@ -1,5 +1,9 @@
 #!/bin/sh
 
+module load anaconda3/2024.02-1-11.4
+. "$(conda info --base)/etc/profile.d/conda.sh"
+conda activate data-disc
+
 SCRIPT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
 PROJECT_ROOT=$(CDPATH= cd -- "$SCRIPT_DIR/../.." && pwd)
 cd "$SCRIPT_DIR" || exit 1
