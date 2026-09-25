@@ -5,9 +5,8 @@ from config import Config
 
 FLOWER_SCRIPT = (
 	Config.FolderPaths.ROOT
-	/ "external"
-	/ "FlowER-repo"
-	/ "run_FlowER_large_newData.sh"
+	/ "scripts"
+	/ "run_FlowER.sh"
 )
 
 
