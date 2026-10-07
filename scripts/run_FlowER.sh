@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 module load anaconda3/2024.02-1-11.4
 . "$(conda info --base)/etc/profile.d/conda.sh"
@@ -7,6 +7,8 @@ conda activate data-disc
 SCRIPT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
 PROJECT_ROOT=$(CDPATH= cd -- "$SCRIPT_DIR/.." && pwd)
 FLOWER_REPO="$PROJECT_ROOT/external/FlowER-repo"
+
+[ -d "$FLOWER_REPO" ] || { echo "FlowER repository not found: $FLOWER_REPO" >&2; exit 1; }
 
 cd "$FLOWER_REPO" || exit 1
 
@@ -37,13 +39,16 @@ export TEST_FILE="$PROJECT_ROOT/models/FlowER/data/$DATA_NAME/test.txt"
 #export TEST_FILE="$PROJECT_ROOT/models/FlowER/data/$DATA_NAME/beam.txt"
 
 export MODEL_PATH="$PROJECT_ROOT/models/FlowER/checkpoints/$DATA_NAME/$EXP_NAME/"
-export RESULT_PATH="$PROJECT_ROOT/results/$DATA_NAME/$EXP_NAME/"
+RUN_ID="${SLURM_JOB_ID:-$(date +%Y%m%d_%H%M%S)_$$}"
+export RESULT_PATH="$PROJECT_ROOT/results/$DATA_NAME/$EXP_NAME/run-$RUN_ID/"
 mkdir -p "$RESULT_PATH"
 
-# [ -f "$TRAIN_FILE" ] || { echo "$TRAIN_FILE does not exist"; exit 1; }
-# [ -f "$VAL_FILE" ] || { echo "$VAL_FILE does not exist"; exit 1; }
-# [ -f "$TEST_FILE" ] || { echo "$TEST_FILE does not exist"; exit 1; }
+[ -f "$TEST_FILE" ] || { echo "Test file not found: $TEST_FILE" >&2; exit 1; }
+[ -f "$MODEL_PATH/$MODEL_NAME" ] || {
+    echo "Checkpoint not found: $MODEL_PATH/$MODEL_NAME" >&2
+    exit 1
+}
 
 export SCALE=1 # larger sample size during testing
 bash scripts/eval_multiGPU.sh
-#bash scripts/search.sh
+# bash scripts/search.sh
