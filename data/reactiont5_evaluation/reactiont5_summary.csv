@@ -1,0 +1,2 @@
+num_reactions,top1_accuracy,top5_accuracy,valid_smiles_rate,average_rank1_tanimoto,average_rank1_chiral_tanimoto,pearson_correlation,spearman_correlation
+100,0.91,0.93,0.872,0.9665635081240627,0.965186097655743,0.23703795421619767,0.3503136787966333
