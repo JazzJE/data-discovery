@@ -44,7 +44,9 @@ $ pip install -r requirements.txt
 ## Data/Model preparation
 FlowER is trained on a combination of subset of USPTO-FULL (Dai et al.), RmechDB and PmechDB (Baldi et al.). <br>
 To retrain/reproduce FlowER, download `data.zip` and `checkpoints.zip` from [this link](https://doi.org/10.6084/m9.figshare.32513667), unzip them, and place under `FlowER/`. <br>
-The folder structure for the `data` folder is `data/{DATASET_NAME}/{train,val,test}.txt` and `checkpoints` folder is `checkpoints/{DATASET_NAME}/{EXPERIMENT_NAME}/model.{STEP}_{IDX}.pt`
+The folder structure for the `data` folder is `data/{DATASET_NAME}/{train,val,test}.txt` and `checkpoints` folder is `checkpoints/{DATASET_NAME}/{EXPERIMENT_NAME}/model.{STEP}_{IDX}.pt`.
+
+> Before running `run_FlowER_large_newData.sh`, make sure the script is configured to the local path where you downloaded and extracted the model weights. In particular, set `MODEL_NAME`, `MODEL_PATH`, and `RESULT_PATH` in `run_FlowER_large_newData.sh` to the actual checkpoint directory and output directory on your machine, rather than assuming the default repo-relative paths are valid outside this repository layout.
 
 ## On how FlowER is structured
 The workflow of FlowER revolves mainly around 2 files. `run_FlowER_large_newData.sh` and `settings.py`. <br> 

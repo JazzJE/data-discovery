@@ -2,9 +2,12 @@
 
 # Models
 * [ReactionT5](huggingface.co/sagawa/ReactionT5v2-forward)
+	- Expects molecular SMILES in the format `REACTANT:<reactant_smiles>REAGENT:<reagent_smiles>`.
+	- Separate multiple molecules with `.` and predicts product SMILES from the reactants and reagents.
+	- The FlowER records and impurity dataset formulas, such as `Li2CO3` and `ZrO2`, are not directly valid ReactionT5 inputs because they are chemical formulas rather than molecular SMILES.
 * [FlowER](github.com/FongMunHong/FlowER)
-- To retrain/reproduce FlowER, download `data.zip` and `checkpoints.zip` from [this link](https://doi.org/10.6084/m9.figshare.32513667), unzip them, and place under `FlowER/`. <br>
-- The folder structure for the `data` folder is `data/{DATASET_NAME}/{train,val,test}.txt` and `checkpoints` folder is `checkpoints/{DATASET_NAME}/{EXPERIMENT_NAME}/model.{STEP}_{IDX}.pt`
+	- To retrain/reproduce FlowER, download `data.zip` and `checkpoints.zip` from [this link](https://doi.org/10.6084/m9.figshare.32513667), unzip them, and place under `FlowER/`.
+	- The folder structure for the `data` folder is `data/{DATASET_NAME}/{train,val,test}.txt` and `checkpoints` folder is `checkpoints/{DATASET_NAME}/{EXPERIMENT_NAME}/model.{STEP}_{IDX}.pt`.
 
 ## Run FlowER
 
